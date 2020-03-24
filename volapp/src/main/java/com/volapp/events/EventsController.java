@@ -3,8 +3,6 @@ package com.volapp.events;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,8 +24,8 @@ public class EventsController {
 	EventsRepository eventsRepo;
 	
 	@PostMapping("/events")
-	public ResponseEntity<Object> Events(@Valid @RequestBody Events events) throws Exception{
-		Events newEvent = new Events(events.getId(), events.getCharityName(), events.getEventName(), events.getEventStreet(), events.getEventCity(), events.getEventState(), events.getEventZip(), events.getEventDateTime(), events.getEventTime(), events.getEventDescription());
+	public ResponseEntity<Object> Events(@RequestBody Events events){
+		Events newEvent = new Events(events.getId(), events.getCharityName(), events.getCharityPhone(), events.getEventName(), events.getEventLocation(), events.getEventDate(), events.getEventTime(), events.getEventDescription());
 		
 		eventsRepo.save(newEvent);
 		return ResponseEntity.ok().body(events);
@@ -44,7 +42,7 @@ public class EventsController {
 	}
 	
 	@PutMapping("/events/{eventName}")
-	public ResponseEntity<Events> putEvent(@PathVariable(value="eventName") String eventName, @RequestBody Events events) throws Exception{
+	public ResponseEntity<Events> putEvent(@PathVariable(value="eventName") String eventName, @RequestBody Events events){
 		Events foundEvents= eventsRepo.findByEventName(eventName);
 		
 		if(foundEvents == null) {
@@ -52,12 +50,10 @@ public class EventsController {
 			}
 		else {
 			foundEvents.setCharityName(events.getCharityName());
+			foundEvents.setCharityPhone(events.getCharityPhone());
 			foundEvents.setEventName(events.getEventName());
-			foundEvents.setEventStreet(events.getEventStreet());
-			foundEvents.setEventCity(events.getEventCity());
-			foundEvents.setEventState(events.getEventState());
-			foundEvents.setEventZip(events.getEventZip());
-			foundEvents.setEventDateTime(events.getEventDateTime());
+			foundEvents.setEventLocation(events.getEventLocation());
+			foundEvents.setEventDate(events.getEventDate());
 			foundEvents.setEventTime(events.getEventTime());
 			foundEvents.setEventDescription(events.getEventDescription());
 			eventsRepo.save(foundEvents);

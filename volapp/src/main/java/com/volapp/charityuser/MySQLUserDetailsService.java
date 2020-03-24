@@ -2,6 +2,7 @@ package com.volapp.charityuser;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,4 +40,5 @@ public class MySQLUserDetailsService implements UserDetailsService{
 		authList.add(new SimpleGrantedAuthority("ROLE_USER"));
 		return authList;
 	}
+
 }
