@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
    
  
@@ -25,44 +25,11 @@ public class User {
     private String charityState;
     private Long charityZip;
     private Long charityPhone;
-    private String charityLogoLink;
     
     @Column(nullable = false, unique = true)
     private String username;
     private String password;
-    
-    public User() {}
-    
-    public User(User user) {
-    	this.id = user.id;
-    	this.charityTitle = user.charityTitle;
-    	this.charityName = user.charityName;
-    	this.charityCat = user.charityCat;
-    	this.charityStreet = user.charityStreet;
-    	this.charityCity = user.charityCity;
-    	this.charityState = user.charityState;
-    	this.charityZip = user.charityZip;
-    	this.charityPhone = user.charityPhone;
-    	this.username = user.username;
-    	this.password = user.password;
-    	this.charityLogoLink = user.charityLogoLink;
-    }
-
-    public User(Long id, String charityTitle, String charityName, String charityCat, String charityStreet, String charityCity, String charityState, Long charityZip, Long charityPhone, String username, String password, String charityLogoLink) {
-    	this.id = id;
-    	this.charityTitle = charityTitle;
-    	this.charityName = charityName;
-    	this.charityCat = charityCat;
-    	this.charityStreet = charityStreet;
-    	this.charityCity = charityCity;
-    	this.charityState = charityState;
-    	this.charityZip = charityZip;
-    	this.charityPhone = charityPhone;
-    	this.username = username;
-    	this.password = password;
-    	this.charityLogoLink = charityLogoLink;
-    }
-
+ 
 	public Long getId() {
 		return id;
 	}
@@ -149,14 +116,6 @@ public class User {
 
 	public void setCharityPhone(Long charityPhone) {
 		this.charityPhone = charityPhone;
-	}
-
-	public String getCharityLogoLink() {
-		return charityLogoLink;
-	}
-
-	public void setCharityLogoLink(String charityLogoLink) {
-		this.charityLogoLink = charityLogoLink;
 	}
 	
 	

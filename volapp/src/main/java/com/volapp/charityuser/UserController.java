@@ -37,16 +37,8 @@ public class UserController {
 	//Sign up
 	@PostMapping("/user")
 	public ResponseEntity<User> createUser(@RequestBody User user){
-	User newUser = new User(user.getId(), user.getCharityName(), user.getCharityCat(), user.getCharityStreet(), user.getCharityCity(), user.getCharityState(), user.getCharityTitle(), user.getCharityPhone(), user.getCharityZip(), user.getUsername(), user.getPassword(), user.getCharityLogoLink());
-	
-	userService.Save(newUser);
+	userService.Save(user);
 	return ResponseEntity.ok().body(user);
-	}
-	
-	
-	@PostMapping("/user/{username}")
-	public User getUser(@PathVariable("username") String username) {
-		return userRepo.findByUsername(username);
 	}
 	
 	

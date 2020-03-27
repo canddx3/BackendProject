@@ -2,6 +2,8 @@ package com.volapp;
 
 
 
+import static com.volapp.auth.AuthConstants.SIGN_UP_URL;
+
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
 import com.volapp.charityuser.MySQLUserDetailsService;
 
 @CrossOrigin
@@ -33,12 +34,15 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-		.httpBasic().and()
-	       .authorizeRequests()
-	       .antMatchers("/charity" , "/api/charity/**")
-	       .permitAll().anyRequest().authenticated()
-	       .and().csrf().disable();
+	    http.cors()
+	      .and()
+	      .csrf().disable()
+	      .authorizeRequests().antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+	      .anyRequest().authenticated()
+	      .and()
+	      .addFilter(new com.volapp.auth.JWTAuthenticationFilter(authenticationManager()))
+	      .addFilter(new com.volapp.auth.JWTAuthenticationFilter(authenticationManager()))
+	      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 }
 	  
   @Bean
