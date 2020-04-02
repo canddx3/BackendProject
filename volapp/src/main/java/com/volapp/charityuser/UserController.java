@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api/charity")
@@ -24,13 +25,23 @@ public class UserController {
 	UserRepository userRepo;
 
 	@Autowired
+	UserIdRepository userIdRepo;
+	
+	@Autowired
 	private MySQLUserDetailsService userService;
+	
+	
 	
 	
 	
 	@GetMapping("/user")
 	public List<User> findAll(){
 		return userRepo.findAll();
+	}
+	
+	@GetMapping("/user/{id}")
+	public User find(@PathVariable("id") Long id){
+		return userIdRepo.findById(id);
 	}
 	
 	
@@ -42,8 +53,8 @@ public class UserController {
 	}
 	
 	
-    @PutMapping("/user/{username}")
-	public ResponseEntity<User> putUser(@PathVariable(value="username") String username, @RequestBody User user) {
+    @PutMapping("/user/{id}")
+	public ResponseEntity<User> putUser(@PathVariable(value="id") String username, @RequestBody User user) {
 		// Saving to DB using an instance of the repo interface.
 		User foundUser = userRepo.findByUsername(username);
 		

@@ -25,9 +25,7 @@ public class EventsController {
 	
 	@PostMapping("/events")
 	public ResponseEntity<Object> Events(@RequestBody Events events){
-		Events newEvent = new Events(events.getId(), events.getCharityName(), events.getCharityPhone(), events.getEventName(), events.getEventLocation(), events.getEventDate(), events.getEventTime(), events.getEventDescription());
-		
-		eventsRepo.save(newEvent);
+		eventsRepo.save(events);
 		return ResponseEntity.ok().body(events);
 	}
 	
